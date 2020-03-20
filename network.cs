@@ -321,13 +321,16 @@ namespace branch_bound_epanet
             int[] k = new int[pumps.Count + 1];
 
             int n = 1;
-        aqui1:
+        here1:
             for (int i = 1; i <= pumps.Count; i++) k[i] = 0;
             for (int i = 1; i <= pumps.Count; i++)
             {
 
                 for (int j = 1; j <= m - 1; j++)
                     if (msol[i, j] == 0 && msol[i, j + 1] == 1) k[i]++;
+                //24
+                //if (m == 24) if (msol[i, 1] == 1 && msol[i, 24] == 0) k[i]++;
+
             }
 
             bool ult = false;
@@ -342,7 +345,7 @@ namespace branch_bound_epanet
                 msol[2, m] = 1;
                 msol[3, m] = 0;
                 n++;
-                goto aqui1;
+                goto here1;
             }
             if (ult && nb == 1 && n == 2)//010=>001
             {
@@ -350,7 +353,7 @@ namespace branch_bound_epanet
                 msol[2, m] = 0;
                 msol[3, m] = 1;
                 n++;
-                goto aqui1;
+                goto here1;
             }
             if (ult && nb == 2 && n == 1)//110=>101
             {
@@ -358,7 +361,7 @@ namespace branch_bound_epanet
                 msol[2, m] = 0;
                 msol[3, m] = 1;
                 n++;
-                goto aqui1;
+                goto here1;
             }
             if (ult && nb == 2 && n == 2)//101=>011
             {
@@ -366,10 +369,11 @@ namespace branch_bound_epanet
                 msol[2, m] = 1;
                 msol[3, m] = 1;
                 n++;
-                goto aqui1;
+                goto here1;
             }
 
-           //24<=
+           
+          
 
             if (ult) bl1 = false;
 
